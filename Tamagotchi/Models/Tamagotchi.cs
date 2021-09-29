@@ -10,6 +10,7 @@ namespace Tamagotchi.Models
     public int Sleep { get; set; }
     public int Id { get; }
     private static List<Pet> _pets = new List<Pet> {};
+    public int idVariable = 1;
 
     public Pet (string name)
     {
@@ -18,7 +19,8 @@ namespace Tamagotchi.Models
       Love = 50;
       Sleep = 50;
       _pets.Add(this);
-      Id = _pets.Count;
+      Id = idVariable;
+      idVariable++;
     }
 
     public void FeedPet()
@@ -69,16 +71,14 @@ namespace Tamagotchi.Models
 
     public static void PassTime()
     {
+      List<Pet> _newPets = new List<Pet> {};
       foreach (Pet pet in _pets)
       {
         pet.Food -= 5;
         pet.Love -= 5;
         pet.Sleep -= 5;
-        if (pet.Food <= 0 || pet.Love <= 0 || pet.Sleep <= 0) 
-        {
-          _pets.RemoveAt(pet.Id-1);
-        }
       }
+      _pets.RemoveAll(pet => pet.Food <= 0 || pet.Love <= 0 || pet.Sleep <= 0);
     }
 
     public static Pet Find(int searchId)

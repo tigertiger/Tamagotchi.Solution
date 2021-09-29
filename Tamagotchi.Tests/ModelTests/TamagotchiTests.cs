@@ -120,5 +120,21 @@ namespace Tamagotchi.Tests
       Assert.AreEqual(45, newPet2.Love);
       Assert.AreEqual(45, newPet2.Sleep);
     }
+
+    [TestMethod]
+    public void PassTime_RemovesDeadPet_PetList()
+    {
+      Pet newPet1 = new Pet("George");
+      Pet newPet2 = new Pet("Willard");
+      Pet newPet3 = new Pet("Jane");
+      Pet newPet4 = new Pet("Bri");
+      newPet1.Food = 5;
+      newPet2.Love = 5;
+      newPet3.Sleep = 5;
+      Pet.PassTime();
+      List<Pet> petList = Pet.GetAll();
+      Assert.AreEqual(1, petList.Count);
+
+    }
   }
 }
