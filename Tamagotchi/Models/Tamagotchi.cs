@@ -21,6 +21,42 @@ namespace Tamagotchi.Models
       Id = _pets.Count;
     }
 
+    public void FeedPet()
+    {
+      if ((this.Food + 10) > 100)
+      {
+        this.Food = 100;
+      }
+      else
+      {
+        this.Food += 10;
+      }
+    }
+
+    public void LovePet()
+    {
+      if ((this.Love + 10) > 100)
+      {
+        this.Love = 100;
+      }
+      else
+      {
+        this.Love += 10;
+      }
+    }
+
+    public void RestPet()
+    {
+      if ((this.Sleep + 10) > 100)
+      {
+        this.Sleep = 100;
+      }
+      else
+      {
+        this.Sleep += 10;
+      }
+    }
+
     public static List<Pet> GetAll()
     {
       return _pets;
@@ -29,6 +65,20 @@ namespace Tamagotchi.Models
     public static void ClearAll()
     {
       _pets.Clear();
+    }
+
+    public static void PassTime()
+    {
+      foreach (Pet pet in _pets)
+      {
+        pet.Food -= 5;
+        pet.Love -= 5;
+        pet.Sleep -= 5;
+        if (pet.Food <= 0 || pet.Love <= 0 || pet.Sleep <= 0) 
+        {
+          _pets.RemoveAt(pet.Id-1);
+        }
+      }
     }
 
     public static Pet Find(int searchId)

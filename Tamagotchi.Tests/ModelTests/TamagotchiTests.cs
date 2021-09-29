@@ -83,5 +83,42 @@ namespace Tamagotchi.Tests
       Pet result = Pet.Find(2);
       Assert.AreEqual(newPet2, result);
     }
+
+    [TestMethod]
+    public void FeedPet_FeedsPet_Int()
+    {
+      Pet newPet = new Pet("George");
+      newPet.FeedPet();
+      Assert.AreEqual(60, newPet.Food);
+    }
+    [TestMethod]
+    public void LovePet_LovesPet_Int()
+    {
+      Pet newPet = new Pet("George");
+      newPet.LovePet();
+      Assert.AreEqual(60, newPet.Love);
+    }
+    
+    [TestMethod]
+    public void Rest_RestsPet_Int()
+    {
+      Pet newPet = new Pet("George");
+      newPet.RestPet();
+      Assert.AreEqual(60, newPet.Sleep);
+    }
+    
+    [TestMethod]
+    public void PassTime_DecrementsPetStats_Int()
+    {
+      Pet newPet1 = new Pet("George");
+      Pet newPet2 = new Pet("Willard");
+      Pet.PassTime();
+      Assert.AreEqual(45, newPet1.Food);
+      Assert.AreEqual(45, newPet1.Love);
+      Assert.AreEqual(45, newPet1.Sleep);
+      Assert.AreEqual(45, newPet2.Food);
+      Assert.AreEqual(45, newPet2.Love);
+      Assert.AreEqual(45, newPet2.Sleep);
+    }
   }
 }
