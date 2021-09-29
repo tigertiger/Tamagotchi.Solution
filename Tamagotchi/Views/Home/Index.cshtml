@@ -1,0 +1,32 @@
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
+</head>
+<body>
+  <style>
+    body {
+    font-family: 'Dosis', sans-serif;
+    }
+
+    .container {
+      padding: 3% 0 0 0;
+    }
+
+    h1 {
+      padding: 2% 0;
+    }
+  </style>
+  <div class="container">
+    <h1>Tamagotchi</h1>
+    <a href='/pets/new'><button class="btn btn-info">Add a new Tamagotchi!</button></a> <br /><br />
+    <a href='/pets'><button class="btn btn-primary">See your current Tamagotchis.</button></a><br /><br />
+    <form action="/pets/wait" method="post">
+    <button type="submit" name="button" button class="btn btn-info">Pass Time</button>
+    </form>
+    <form action="/pets/delete" method="post">
+    <button type="submit" name="button" button class="btn btn-info">Destroy your Pets :[</button>
+    </form>
+  </div>
+</body>

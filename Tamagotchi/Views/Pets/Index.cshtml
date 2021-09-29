@@ -1,0 +1,20 @@
+@using Tamagotchi.Models;
+
+<h1>Your Tamagotchis</h1>
+
+@if (Model.Count == 0)
+{
+  <p>You don't have any pets yet.</p>
+}
+<ul>
+  @foreach (Pet pet in Model)
+  {
+    <li><a href='/pets/@pet.Id'>@pet.Name</a></li>
+  }
+</ul>
+
+  <a href='/pets/new'><button class="btn btn-info">Add a new tamagotchi</button></a> <br /><br />
+  <a href='/pets'><button class="btn btn-primary">See all of your tamagotchis</button></a><br /><br />
+  <form action="/pets/delete" method="post">
+  <button type="submit" name="button" button class="btn btn-info">Destroy your pets :[</button>
+  </form>
