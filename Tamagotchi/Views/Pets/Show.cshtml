@@ -2,6 +2,7 @@
 
 <h2>@Model.Name</h2>
 <ul>
+  <li>@Model.Name is @Model.Age blips old</li>
   <li>Your pet's hunger: @Model.Food</li>
   <ul><li><form action="/pets/@Model.Id/feed" method="post">
   <button type="submit" name="button" button class="btn btn-info">Feed @Model.Name</button>

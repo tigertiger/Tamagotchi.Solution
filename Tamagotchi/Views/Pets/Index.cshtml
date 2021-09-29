@@ -1,7 +1,15 @@
 @using Tamagotchi.Models;
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&display=swap" rel="stylesheet">
+<style>
+  h3 {
+    font-family: 'Creepster', cursive;
+  }
+</style>
 <h1>Your Tamagotchis</h1>
 
+@{bool deadPets = false;}
 @if (Model.Count == 0)
 {
   <p>You don't have any pets yet.</p>
@@ -10,19 +18,63 @@
   @foreach (Pet pet in Model)
   {
     string needsSomething = "";
-    if (pet.Food < 30 || pet.Love < 30 || pet.Sleep < 30)
+    string ageAppearance = "";
+    if (pet.Dead == false)
     {
-      needsSomething = " needs something from you.";
+      if (pet.Age > 85)
+      {
+        ageAppearance = "Venerable ";
+      }
+      else if (pet.Age > 65)
+      {
+        ageAppearance = "Old ";
+      }
+      else if (pet.Age > 19)
+      {
+        ageAppearance = "Adult ";
+      }
+      else if (pet.Age > 11)
+      {
+        ageAppearance = "Teenage ";
+      }
+      else if (pet.Age > 4)
+      {
+        ageAppearance = "Pupa Child ";
+      }
+      else
+      {
+        ageAppearance = "Larva ";
+      }
+      if (pet.Food < 30 || pet.Love < 30 || pet.Sleep < 30)
+      {
+        needsSomething = " needs something from you.";
+      }
+      <li><a href='/pets/@pet.Id'>@ageAppearance @pet.Name@needsSomething</a></li>
     }
-    <li><a href='/pets/@pet.Id'>@pet.Name@needsSomething</a></li>
+    else
+    {
+      deadPets = true;
+    }
   }
 </ul>
-
+@if (deadPets)
+{
+  <h3>Pet Sematary</h3>
+  <ul>
+    @foreach (Pet pet in Model)
+    {
+      if (pet.Dead == true)
+      {
+        <li>:[ @pet.Name has died at @pet.Age blips old. ;_;</li>
+      }
+    }
+  </ul>
+}
   <a href='/pets/new'><button class="btn btn-info">Add a new tamagotchi</button></a> <br /><br />
   <a href='/pets'><button class="btn btn-primary">See all of your tamagotchis</button></a><br /><br />
   <form action="/pets/wait" method="post">
   <button type="submit" name="button" button class="btn btn-info">Wait a bit.</button>
   </form>
   <form action="/pets/delete" method="post">
-  <button type="submit" name="button" button class="btn btn-info">Destroy your pets :[</button>
+  <button type="submit" name="button" button class="btn btn-info">Destroy all pets :[</button>
   </form>
