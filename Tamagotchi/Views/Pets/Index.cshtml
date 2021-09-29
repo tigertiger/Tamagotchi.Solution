@@ -9,12 +9,20 @@
 <ul>
   @foreach (Pet pet in Model)
   {
-    <li><a href='/pets/@pet.Id'>@pet.Name</a></li>
+    string needsSomething = "";
+    if (pet.Food < 30 || pet.Love < 30 || pet.Sleep < 30)
+    {
+      needsSomething = " needs something from you.";
+    }
+    <li><a href='/pets/@pet.Id'>@pet.Name@needsSomething</a></li>
   }
 </ul>
 
   <a href='/pets/new'><button class="btn btn-info">Add a new tamagotchi</button></a> <br /><br />
   <a href='/pets'><button class="btn btn-primary">See all of your tamagotchis</button></a><br /><br />
+  <form action="/pets/wait" method="post">
+  <button type="submit" name="button" button class="btn btn-info">Wait a bit.</button>
+  </form>
   <form action="/pets/delete" method="post">
   <button type="submit" name="button" button class="btn btn-info">Destroy your pets :[</button>
   </form>
