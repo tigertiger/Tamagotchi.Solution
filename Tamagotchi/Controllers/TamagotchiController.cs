@@ -21,9 +21,9 @@ namespace Tamagotchi.Controllers
     }
 
     [HttpPost("/pets")]
-    public ActionResult Create(string name)
+    public ActionResult Create(string name, int food, int love, int sleep, bool dead, int age, int id)
     {
-      Pet myPet = new Pet(name);
+      Pet myPet = new Pet(name, food, love, sleep, dead, age, id);
       myPet.Save();
       return RedirectToAction("Index");
     }

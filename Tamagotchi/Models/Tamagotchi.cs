@@ -22,11 +22,9 @@ namespace Tamagotchi.Models
       Sleep = 50;
       Dead = false;
       Age = 1;
-      // _pets.Add(this);
-      // Id = _pets.Count;
     }
 
-    public Pet(string name, int id)
+    public Pet(string name, int food, int love, int sleep, bool dead, int age, int id)
     {
       Id = id;
       Name = name;
@@ -100,12 +98,12 @@ namespace Tamagotchi.Models
       {
         int petId = rdr.GetInt32(0);
         string petName = rdr.GetString(1);
-        // int petFood = rdr.GetInt32(2);
-        // int petLove = rdr.GetInt32(3);
-        // int petSleep = rdr.GetInt32(4);
-        // bool petDead = rdr.GetBoolean(5);
-        // int petAge = rdr.GetInt32(6);
-        Pet newPet = new Pet(petName, petId);
+        int petFood = rdr.GetInt32(2);
+        int petLove = rdr.GetInt32(3);
+        int petSleep = rdr.GetInt32(4);
+        bool petDead = rdr.GetBoolean(5);
+        int petAge = rdr.GetInt32(6);
+        Pet newPet = new Pet(petName, petFood, petLove, petSleep, petDead, petAge, petId);
         allPets.Add(newPet);
       }
       conn.Close();
@@ -165,12 +163,22 @@ namespace Tamagotchi.Models
       var rdr = cmd.ExecuteReader() as MySqlDataReader;
       int petId = 0;
       string petName = "";
+      int petFood = 0;
+      int petLove = 0;
+      int petSleep = 0;
+      bool petDead = false;
+      int petAge = 0;
       while (rdr.Read())
       {
         petId = rdr.GetInt32(0);
         petName = rdr.GetString(1);
+        petFood = rdr.GetInt32(2);
+        petLove = rdr.GetInt32(3);
+        petSleep = rdr.GetInt32(4);
+        petDead = rdr.GetBoolean(5);
+        petAge = rdr.GetInt32(6);
       }
-      Pet foundPet= new Pet(petName, petId);
+      Pet foundPet= new Pet(petName, petFood, petLove, petSleep, petDead, petAge, petId);
 
       conn.Close();
       if (conn != null)
@@ -186,11 +194,31 @@ namespace Tamagotchi.Models
       conn.Open();
       var cmd = conn.CreateCommand() as MySqlCommand;
 
-      cmd.CommandText = @"INSERT INTO pets (name) VALUES (@PetName);";
+      cmd.CommandText = @"INSERT INTO pets (name, food, love, sleep, dead, age) VALUES (@PetName, @PetFood, @PetLove, @PetSleep, @PetDead, @PetAge);";
       MySqlParameter name = new MySqlParameter();
+      MySqlParameter food = new MySqlParameter();
+      MySqlParameter love = new MySqlParameter();
+      MySqlParameter sleep = new MySqlParameter();
+      MySqlParameter dead = new MySqlParameter();
+      MySqlParameter age = new MySqlParameter();
       name.ParameterName = "@PetName";
       name.Value = this.Name;
-      cmd.Parameters.Add(name);    
+      food.ParameterName = "@PetFood";
+      food.Value = this.Food;
+      love.ParameterName = "@PetLove";
+      love.Value = this.Love;
+      sleep.ParameterName = "@PetSleep";
+      sleep.Value = this.Sleep;
+      dead.ParameterName = "@PetDead";
+      dead.Value = this.Dead;
+      age.ParameterName = "@PetAge";
+      age.Value = this.Age;
+      cmd.Parameters.Add(name); 
+      cmd.Parameters.Add(food);
+      cmd.Parameters.Add(love);
+      cmd.Parameters.Add(sleep);
+      cmd.Parameters.Add(dead);   
+      cmd.Parameters.Add(age);
       cmd.ExecuteNonQuery();
       Id = (int) cmd.LastInsertedId;
 
