@@ -27,12 +27,12 @@ namespace Tamagotchi.Controllers
       return RedirectToAction("Index");
     }
 
-    [HttpPost("/pets/wait")]
-    public ActionResult Wait()
-    {
-      Pet.PassTime();
-      return RedirectToAction("Index");
-    }
+    // [HttpPost("/pets/wait")]
+    // public ActionResult Wait()
+    // {
+    //   Pet.PassTime();
+    //   return RedirectToAction("Index");
+    // }
 
     [HttpPost("/pets/{id}/feed")]
     public ActionResult Feed(int id)
