@@ -24,6 +24,7 @@ namespace Tamagotchi.Controllers
     public ActionResult Create(string name)
     {
       Pet myPet = new Pet(name);
+      myPet.Save();
       return RedirectToAction("Index");
     }
 

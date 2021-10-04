@@ -81,18 +81,32 @@ namespace Tamagotchi.Tests
       Assert.AreEqual(firstPet, secondPet);
     }
 
-    // [TestMethod]
-    // public void GetAll_ReturnsPets_PetList()
-    // {
-    //   string name01 = "George";
-    //   string name02 = "Jane";
-    //   Pet newPet1 = new Pet(name01);
-    //   Pet newPet2 = new Pet(name02);
-    //   List<Pet> newList = new List<Pet> { newPet1, newPet2 };
-    //   List<Pet> result = Pet.GetAll();
-    //   CollectionAssert.AreEqual(newList, result);
-    // }
+    [TestMethod]
+    public void GetAll_ReturnsPets_PetList()
+    {
+      string name01 = "George";
+      string name02 = "Jane";
+      Pet newPet1 = new Pet(name01);
+      newPet1.Save();
+      Pet newPet2 = new Pet(name02);
+      newPet2.Save();
+      List<Pet> newList = new List<Pet> { newPet1, newPet2 };
+      List<Pet> result = Pet.GetAll();
+      CollectionAssert.AreEqual(newList, result);
+    }
 
+    [TestMethod]
+    public void Find_ReturnsCorrectPetFromDatabase_Pet()
+    {
+      Pet newPet = new Pet("George");
+      newPet.Save();
+      Pet newPet2 = new Pet("Jane");
+      newPet2.Save();
+      Pet foundPet = Pet.Find(newPet.Id);
+      Assert.AreEqual(newPet, foundPet);
+    }
+
+    
     // [TestMethod]
     // public void GetId_PetsInstantiateWithAnIdAndGetReturns_Int()
     // {
@@ -102,16 +116,6 @@ namespace Tamagotchi.Tests
     //   Assert.AreEqual(1, result);
     // }
 
-    // [TestMethod]
-    // public void Find_ReturnsCorrectPet_Pet()
-    // {
-    //   string name01 = "George";
-    //   string name02 = "Jane";
-    //   Pet newPet1 = new Pet(name01);
-    //   Pet newPet2 = new Pet(name02);
-    //   Pet result = Pet.Find(2);
-    //   Assert.AreEqual(newPet2, result);
-    // }
 
     // [TestMethod]
     // public void FeedPet_FeedsPet_Int()
