@@ -37,15 +37,28 @@ namespace Tamagotchi.Models
 
     public void FeedPet()
     {
-      if ((this.Food + 10) > 100)
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"UPDATE pets SET food = '100' WHERE id = @this.Id;";
+      cmd.ExecuteNonQuery();
+      conn.Close();
+      if (conn != null)
       {
-        this.Food = 100;
-      }
-      else
-      {
-        this.Food += 10;
+        conn.Dispose();
       }
     }
+    // public void FeedPet()
+    // {
+    //   if ((this.Food + 10) > 100)
+    //   {
+    //     this.Food = 100;
+    //   }
+    //   else
+    //   {
+    //     this.Food += 10;
+    //   }
+    // }
 
     public void LovePet()
     {
